@@ -3,7 +3,7 @@ const router = require('express').Router()
 // middlewares
 const { authUserMiddleware } = require('../middlewares/authUser')
 // controllers
-const { signUpController, signInController, getUserData } = require('../controllers/user')
+const { signUpController, signInController, getUserData, getUsersListController } = require('../controllers/user')
 
 /**
  * @desc get user data.
@@ -19,6 +19,11 @@ router.post('/sign-up', signUpController)
  * @desc route handles sing-in requests.
  */
 router.post('/sign-in', signInController)
+
+/**
+ * @desc route for hettint a users list, given a name query.
+ */
+router.get('/list/:name', getUsersListController)
 
 // export router 
 module.exports.userRouter = router

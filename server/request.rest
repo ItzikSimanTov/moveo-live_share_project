@@ -5,10 +5,11 @@ POST http://localhost:5000/user/sign-up
 Content-Type: application/json
 
 {
-    "name": "Nate",
+    "name": "Mentor1",
     "password": "123456789",
-    "email": "nate@gmail.com"
+    "email": "mentor1@gmail.com"
 }
+
 ###
 POST http://localhost:5000/user/sign-in
 Content-Type: application/json
@@ -17,3 +18,8 @@ Content-Type: application/json
     "password": "123456789",
     "email": "nate@gmail.com"
 }
+###
+GET http://localhost:5000/codeblock/categories
+Cookie: x-auth-token=eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MzcwZGQ5MzQ0YWFjODM5MjQwYzg0YzkiLCJyb2xlIjoibWVudG9yIn0.YFv-R0M8dqS4WdNvRdpWu9MORG603Uy5YNWZdzTbhAE
+###
+GET http://localhost:5000/user/list/nat

@@ -17,7 +17,7 @@ const signUpController = async (req, res) => {
             email: req.body.email
         }).save()
         // create & return token
-        const token = signNewToken({email: user.email, password: user.password, _id: user._id.toString()})
+        const token = signNewToken({_id: user._id.toString(), role: user.role})
         res.status(201).json({token}).end()
     }
     catch(err) {
@@ -37,7 +37,8 @@ const signInController = async (req, res) => {
         }
         if(await bcrypt.compare(req.body.password, user.password)) {
             // create & return token
-            const token = signNewToken({email: user.email, password: user.password, _id: user._id.toString()})
+            console.log({user})
+            const token = signNewToken({_id: user._id.toString(), role: user.role})
             res.status(200).json({token}).end()
         }
         else {
@@ -55,5 +56,13 @@ const getUserData = async (req, res) => {
     return res.status(200).json({user: req.user}).end()
 }
 
+/**
+ * @desc controller for getting a users-list (by a given name query)
+ */
+const getUsersListController = async (req, res) => {
+    const name = req.params['name']
+    const users = await User.find({name: {$regex: name, $options: 'i'}}).limit(5)
+    return res.status(200).json({users}).end()
+}
 
-module.exports = {signUpController, signInController, getUserData}
+module.exports = {signUpController, signInController, getUserData, getUsersListController}

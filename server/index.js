@@ -4,8 +4,8 @@ const app = express()
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 // routes
-const {testRouter} = require('./routes/test')
 const {userRouter} = require('./routes/user')
+const {codeblockRouter} = require('./routes/codeblock')
 
 // connect with mongodb
 require('./db/connection')
@@ -17,6 +17,6 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 // routes
 app.use('/user', userRouter)
-app.use('/test', testRouter)
+app.use('/codeblock', codeblockRouter)
 
 app.listen(5000)

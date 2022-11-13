@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const {UserRoleTypes} = require('../db/types/user')
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -16,7 +17,7 @@ const UserSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['student', 'teacher'],
+        enum: UserRoleTypes,
         default: 'student'
     }
 })
