@@ -1,0 +1,19 @@
+GET http://localhost:5000/user
+Cookie: x-auth-token=eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im5hdGVAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkaVlsWlZQNFdhcjNTREpZd09YZ1dzZVc0dHNiSGFTUU42VnlGWEZuT1ZSc1o4aUltNmJObXEiLCJfaWQiOiI2MzcwZGQ5MzQ0YWFjODM5MjQwYzg0YzkifQ.-TDGNk_bUezkGMmzMAVHqeFZVZazdbYfFemBCd-1sVk
+###
+POST http://localhost:5000/user/sign-up
+Content-Type: application/json
+
+{
+    "name": "Nate",
+    "password": "123456789",
+    "email": "nate@gmail.com"
+}
+###
+POST http://localhost:5000/user/sign-in
+Content-Type: application/json
+
+{
+    "password": "123456789",
+    "email": "nate@gmail.com"
+}
