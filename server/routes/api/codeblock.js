@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const {Codeblock} = require('../models/codeblock')
+const {Codeblock} = require('../../models/codeblock')
 // utils
-const {signCodeblockToken} = require('../utils/jwt')
+const {signCodeblockToken} = require('../../utils/jwt')
 // middlewares
-const {filterUserRoleMiddleware} = require('../middlewares/filterUserRole')
+const {filterUserRoleMiddleware} = require('../../middlewares/filterUserRole')
 // controllers
-const {getCategories} = require('../controllers/codeblock')
+const {getCategories} = require('../../controllers/api/codeblock')
 
 /**
  * @desc get codeblock categories.

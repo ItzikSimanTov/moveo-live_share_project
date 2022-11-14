@@ -1,7 +1,7 @@
 // user:controllers file
 const bcrypt = require('bcrypt')
-const {User} = require('../models/user')
-const {signNewToken} = require('../utils/jwt')
+const {User} = require('../../models/user')
+const {signNewToken} = require('../../utils/jwt')
 
 /**
  * @desc controller for user:sign-up

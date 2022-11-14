@@ -1,6 +1,6 @@
 // codeblock:controllers file
-const {Codeblock} = require('../models/codeblock')
-const {CodeblockTypes} = require('../db/types/codeblock')
+const {Codeblock} = require('../../models/codeblock')
+const {CodeblockTypes} = require('../../db/types/codeblock')
 
 /**
  * @desc return all codeblock categories.

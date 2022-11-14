@@ -5,8 +5,8 @@ const app = express()
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 // routes
-const {userRouter} = require('./routes/user')
-const {codeblockRouter} = require('./routes/codeblock')
+const { apiRouter } = require('./routes/api')
+const { clientRouter } = require('./routes/client')
 // configs
 const SERVER_PORT = process.env['SERVER_PORT']
 
@@ -22,7 +22,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
 // routes
-app.use('/user', userRouter)
-app.use('/codeblock', codeblockRouter)
+app.use('/', clientRouter)
+app.use('/api', apiRouter)
 
 app.listen(SERVER_PORT, () => console.log(`Server is now working @ port ${SERVER_PORT}!`))

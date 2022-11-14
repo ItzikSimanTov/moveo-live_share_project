@@ -1,9 +1,9 @@
 // Users router - user functinallity
 const router = require('express').Router()
 // middlewares
-const { authUserMiddleware } = require('../middlewares/authUser')
+const { authUserMiddleware } = require('../../middlewares/authUser')
 // controllers
-const { signUpController, signInController, getUserData, getUsersListController } = require('../controllers/user')
+const { signUpController, signInController, getUserData, getUsersListController } = require('../../controllers/api/user')
 
 /**
  * @desc get user data.

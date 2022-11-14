@@ -1,7 +1,7 @@
-GET http://localhost:5000/user
+GET http://localhost:5000/api/user
 Cookie: x-auth-token=eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im5hdGVAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkaVlsWlZQNFdhcjNTREpZd09YZ1dzZVc0dHNiSGFTUU42VnlGWEZuT1ZSc1o4aUltNmJObXEiLCJfaWQiOiI2MzcwZGQ5MzQ0YWFjODM5MjQwYzg0YzkifQ.-TDGNk_bUezkGMmzMAVHqeFZVZazdbYfFemBCd-1sVk
 ###
-POST http://localhost:5000/user/sign-up
+POST http://localhost:5000/api/user/sign-up
 Content-Type: application/json
 
 {
@@ -11,7 +11,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:5000/user/sign-in
+POST http://localhost:5000/api/user/sign-in
 Content-Type: application/json
 
 {
@@ -19,12 +19,12 @@ Content-Type: application/json
     "email": "nate@gmail.com"
 }
 ###
-GET http://localhost:5000/codeblock/categories
+GET http://localhost:5000/api/codeblock/categories
 Cookie: x-auth-token=eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MzcwZGQ5MzQ0YWFjODM5MjQwYzg0YzkiLCJyb2xlIjoibWVudG9yIn0.YFv-R0M8dqS4WdNvRdpWu9MORG603Uy5YNWZdzTbhAE
 ###
-GET http://localhost:5000/user/list/nat
+GET http://localhost:5000/api/user/list/nat
 ###
-POST http://localhost:5000/codeblock/generate
+POST http://localhost:5000/api/codeblock/generate
 Content-Type: application/json
 
 {
