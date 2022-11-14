@@ -23,3 +23,11 @@ GET http://localhost:5000/codeblock/categories
 Cookie: x-auth-token=eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MzcwZGQ5MzQ0YWFjODM5MjQwYzg0YzkiLCJyb2xlIjoibWVudG9yIn0.YFv-R0M8dqS4WdNvRdpWu9MORG603Uy5YNWZdzTbhAE
 ###
 GET http://localhost:5000/user/list/nat
+###
+POST http://localhost:5000/codeblock/generate
+Content-Type: application/json
+
+{
+    "user": "6370dd9344aac839240c84c9",
+    "codeblock_title": "Recursion"
+}

@@ -1,3 +1,4 @@
+require('dotenv').config()  // -- initiate env file
 const express = require('express')
 const app = express()
 // middlewares
@@ -6,9 +7,14 @@ const bodyParser = require('body-parser')
 // routes
 const {userRouter} = require('./routes/user')
 const {codeblockRouter} = require('./routes/codeblock')
+// configs
+const SERVER_PORT = process.env['SERVER_PORT']
 
 // connect with mongodb
 require('./db/connection')
+
+// initiate socket
+require('./connections/codeblock.socket')
 
 // middlewares
 app.use(cookieParser())
@@ -19,4 +25,4 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use('/user', userRouter)
 app.use('/codeblock', codeblockRouter)
 
-app.listen(5000)
+app.listen(SERVER_PORT, () => console.log(`Server is now working @ port ${SERVER_PORT}!`))

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
-const url = "mongodb://127.0.0.1/moveo"
+// configs
+const URL = process.env['DATABASE_URL']
 
 // connect to database
-mongoose.connect(url)
+mongoose.connect(URL)
     .then(res => console.log('Database successfully loaded'))
