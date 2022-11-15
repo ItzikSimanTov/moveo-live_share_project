@@ -2,6 +2,7 @@
 const bcrypt = require('bcrypt')
 const {User} = require('../../models/user')
 const {signNewToken} = require('../../utils/jwt')
+const DAY_IN_MS = 1000 * 3600 * 24
 
 /**
  * @desc controller for user:sign-up
@@ -31,6 +32,7 @@ const signUpController = async (req, res) => {
  */
 const signInController = async (req, res) => {
     try{
+        console.log('logging in', req.body)
         const user = await User.findOne({email: req.body.email})
         if (!user) {
             return res.status(400).send('cannot find the user')
@@ -39,13 +41,16 @@ const signInController = async (req, res) => {
             // create & return token
             console.log({user})
             const token = signNewToken({_id: user._id.toString(), role: user.role})
-            res.status(200).json({token}).end()
+            res.status(200).cookie('x-auth-token', token, {maxAge: DAY_IN_MS}).send('Sign-in success!').end()
+            // res.status(200).cookie('x-auth-token', token, {maxAge: DAY_IN_MS}).redirect('/login-success').end()
         }
         else {
             res.status(403).send('not allowed').end()
         }
-    }catch{
-     res.status(500).send()
+    }
+    catch (err) {
+        console.log({err})
+        res.status(500).send()
     }
 }
 

@@ -9,7 +9,9 @@ const getTemplatePath = filename => resolve('templates', filename)
  */
 const loginController = async (req, res) => {
     const filename = getTemplatePath('Login.page.ejs')
-    console.log({filename})
+    if (req.cookies['x-auth-token']) {
+        return res.status(200).send('Already signed in').end()
+    }
     renderFile(filename, (err, data) => {
         if (err) {
             console.log({err})

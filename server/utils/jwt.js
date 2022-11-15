@@ -11,7 +11,7 @@ const DAY = '1d'
 const signNewToken = ({_id, role}) => jwt.sign(
     JSON.stringify({_id, role}),
     AUTH_SECRET,
-    {expiresIn: DAY}
+    // {expiresIn: DAY}
 )
 
 /**
@@ -20,7 +20,7 @@ const signNewToken = ({_id, role}) => jwt.sign(
 const signCodeblockToken = ({user, codeblock_id}) => jwt.sign(
     JSON.stringify({user, codeblock_id, uuid: uuidv4()}), 
     CODEBLOCK_SECRET,
-    {expiresIn: DAY}
+    // {expiresIn: DAY}
 )
 
 
