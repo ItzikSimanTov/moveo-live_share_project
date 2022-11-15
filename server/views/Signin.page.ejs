@@ -52,6 +52,24 @@
             justify-content: space-evenly;
             padding: 1.5rem;
         }
+        form input:not([type=submit]) {
+            outline: none;
+            border: none;
+            background-color: #00000055;
+            border-left: 3px solid #4A4164;
+            padding: 6px 8px;
+            color: white;
+        }
+        form input[type=submit] {
+            outline: none;
+            border: none;
+            background-color: #999;
+            /* border: 3px solid #4A4164; */
+            border-radius: .5rem;
+            margin-left: 1rem;
+            padding: 6px 8px;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -61,8 +79,8 @@
     </nav>
     <div class="signin-container">
         <form action="/api/user/sign-in" method="post">
-            <input value="nate@gmail.com" type="email" name="email" placeholder="Email..">
-            <input value="123456789" type="password" name="password" placeholder="Password..">
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Password">
             <input type="submit" value="Sign-in">
         </form>
     </div>

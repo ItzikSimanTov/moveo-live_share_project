@@ -92,27 +92,33 @@
         }
     </style>
     <script defer>
-        function selectUser(name) {
+        function selectUser(name, id) {
             // set user value
+            console.log('nid: ', name, id)
             document.querySelector('#user').value = name
+            // set user_id value
+            document.querySelector('#user_id').value = id
+            console.log('value: ', document.querySelector('#user_id').value)
             // clear modal
             document.querySelector('.users-modal').innerHTML = ''
         }
         // 
         function searchUsers(e) {
             const name = document.querySelector('#user').value
-            console.log('name: ', name)
             if (name.length) {
                 fetch(`/api/user/list/${name}`)
                 .then(res => res.json())
                 .then(res => {
-                    html = ''
                     console.log({res})
+                    let html = ''
                     res.users.map(user => {
-                        html += `<h3 onclick={selectUser("${user.name}")}>${user.name}</h3>`
+                        // append user.name element to modal
+                        const elem = document.createElement("h3")
+                        const text = document.createTextNode(user.name)
+                        elem.appendChild(text)
+                        elem.onclick = () => selectUser(user.name, user._id)
+                        document.querySelector('.users-modal').appendChild(elem)
                     })
-                    // render html
-                    document.querySelector('.users-modal').innerHTML = html
                 })
             }
         }
@@ -133,6 +139,8 @@
             </select>
             <!-- select user -->
             <input id="user" type="text" name="user" placeholder="Enter User Name.." oninput="searchUsers()" autocomplete="off">
+            <!-- hidden - user_id -->
+            <input type="hidden" name="user_id" id="user_id" value="">
             <!-- users modal -->
             <div class="users-modal"></div>
             <!-- submit -->

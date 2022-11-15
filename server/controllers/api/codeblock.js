@@ -16,12 +16,13 @@ const getCategories = async (req, res) => {
  */
 const generateRoomController = async (req, res) => {
     // validate payload
-    if (Object.keys(req.body).length !== 2)
-        return res.status(400).send('Should contain codeblock-title & user-id').end()
+    console.log({body: req.body})
+    if (Object.keys(req.body).length !== 3)
+        return res.status(400).send('Wrong parameters').end()
     // create codeblock instance in db
     const result = await Codeblock.create({title: req.body.codeblock_title, code: ''})
     // generate token
-    const token = signCodeblockToken({user: req.body.user, codeblock_id: result._id.toString()})
+    const token = signCodeblockToken({user: req.body.user_id, codeblock_id: result._id.toString()})
     // return to client
     // return res.status(200).json({link: `http://localhost:5000/codeblock?student_login=${token}`}).end()
     return res.status(200).redirect(`http://localhost:5000/codeblock?student_login=${token}`)

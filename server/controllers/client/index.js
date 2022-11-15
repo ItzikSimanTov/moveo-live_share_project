@@ -2,6 +2,7 @@
 const { resolve } = require('path')
 const { renderFile } = require('ejs')
 const { CodeblockTypes } = require('../../db/types/codeblock')
+const { Codeblock } = require('../../models/codeblock')
 
 const getTemplatePath = filename => resolve('views', filename)
 
@@ -66,4 +67,28 @@ const lobbyController = async (req, res) => {
     })
 }
 
-module.exports = {signinController, signupController, lobbyController}
+/**
+ * @desc read ejs (codeblock) file
+ */
+const codeblockController = async (req, res) => {
+    // get codeblock init data
+    const result = await Codeblock.findById(req.codeblock.codeblock_id)
+    // ejs
+    const filename = getTemplatePath('Codeblock.page.ejs')
+    const data = {
+        // categories: CodeblockTypes
+        uuid: req.codeblock.uuid,
+        def_code: result.code,
+        isMentor: req['isMentor'] ? true : false
+    }
+    // return ejs file
+    renderFile(filename, data, (err, data) => {
+        if (err) {
+            console.log({err})
+            return res.status(500).end()
+        }
+        res.status(200).send(data).end()
+    })
+}
+
+module.exports = {signinController, signupController, lobbyController, codeblockController}

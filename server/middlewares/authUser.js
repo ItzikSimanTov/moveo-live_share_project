@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken')
 const {User} = require('../models/user')
+// configs
+const JWT_SECRET_AUTH = process.env['JWT_SECRET_AUTH']
 
 /**
  * @desc Middleware - authenticates the user before accessing vital routes.
@@ -8,7 +10,7 @@ const authUserMiddleware = async (req, res, next) => {
     const token = req.cookies?.['x-auth-token']
     if (!token) return res.status(401).send('Unauthorized').end()
 
-    jwt.verify(token, '12345', async (err, data) => {
+    jwt.verify(token, JWT_SECRET_AUTH, async (err, data) => {
         // validate token
         if (err) {
             return res.status(403).send('Accedd denied').end()

@@ -63,7 +63,7 @@ const getUserData = async (req, res) => {
  */
 const getUsersListController = async (req, res) => {
     const name = req.params['name']
-    const users = await User.find({name: {$regex: name, $options: 'i'}}).limit(5)
+    const users = await User.find({name: {$regex: name, $options: 'i'}, role: 'student'}).limit(5)
     return res.status(200).json({users}).end()
 }
 

@@ -23,5 +23,4 @@ const signCodeblockToken = ({user, codeblock_id}) => jwt.sign(
     // {expiresIn: DAY}
 )
 
-
 module.exports = {signNewToken, signCodeblockToken}

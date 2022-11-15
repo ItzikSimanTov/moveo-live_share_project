@@ -24,7 +24,7 @@ io.on('connection', s => {
 
     console.log('connection')    
     s.on('modify', async args => {
-        // get token from payload 
+        // get token from payload
         const auth_token = args.auth_token
         const codeblock_token = args.codeblock_token
         // token payload variables
