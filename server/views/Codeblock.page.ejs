@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- highlight.js -->
+    <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+    <!-- socket.io -->
     <script src="https://cdn.socket.io/4.5.3/socket.io.min.js" integrity="sha384-WPFUvHkB1aHA5TDSZi6xtDgkF0wXJcIIxXhC6h8OT8EH3fC5PWro5pWJ1THjcfEi" crossorigin="anonymous"></script>
     <title>Moveo - Login</title>
     <style>
@@ -42,32 +47,31 @@
             justify-content: center;
             padding-bottom: 4rem;
         }
-        textarea {
+        #code-viewer {
             width: 60%;
             height: 60%;
             border: 2px solid #333;
             border-radius: .7rem;
         }
+        #code {
+            /* textbox */
+            width: 60%;
+            height: 60%;
+            opacity: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            z-index: 2;
+        }
     </style>
     <script defer>
         // create socket
-        const socket = io('http://localhost:3000/')
-
-        // debounce - increase performance by sending onchange-requests only after an interval has passed.
-        const debounce = (func, wait, immediate) => {
-            let timeout
-            return function executedFunction() {
-                let context = this, args = arguments
-                let later = () => {
-                    timeout = null
-                    if (!immediate) func.apply(context, args)
-                }
-                let callNow = immediate && !timeout;
-                clearTimeout(timeout)
-                timeout = setTimeout(later, wait)
-                if (callNow) func.apply(context, args)
-            }
-        }
+        const socket = io()
+        // get url-query params
+        const url_query = location.search
+            ? Object.fromEntries(location.search.slice(1).split('&').map(s => s.split('=')))
+            : ''
 
         // get cookie by name
         const getCookie = name => {
@@ -76,15 +80,28 @@
             if (parts.length === 2) return parts.pop().split(';').shift();
         }
 
-        const changeHandler = () => {
-            debounce(() => {
-                const value = document.querySelector('#code').value
-                io.emit('modify', {
-                    auth_token: getCookie('x-auth-token'),
-                    codeblock_token: 
-                })
-                // change val via socket
-            }, 500)
+        // get events of mentor
+        const IsMentor = <%= isMentor %>;
+        if (IsMentor) {
+            socket.on('modified', s => {
+                let js = hljs.highlight(s, {language: 'javascript'}).value
+                document.querySelector('#code-viewer').innerHTML = js.replace('\n', '<br/>')
+            })
+        }
+
+        function changeHandler() {
+            if (IsMentor) return
+            console.log('pressed')
+            // -- modify  code via socket
+            const value = document.querySelector('#code').value  // textbox value
+            console.log({value})
+            socket.emit('modify', {
+                auth_token: getCookie('x-auth-token'),
+                codeblock_token: url_query.student_login,
+                code: value
+            })
+            let js = hljs.highlight(value, {language: 'javascript'}).value
+            document.querySelector('#code-viewer').innerHTML = js.replace('\n', '<br/>')
         }
     </script>
 </head>
@@ -94,9 +111,10 @@
         <h1>Codeblock room: <%= uuid %></h1>
     </nav>
     <div class="codeblock-container">
-        <textarea id="code" name="code" cols="30" rows="10" <%= isMentor ? 'disabled' : '' %> onchange="changeHandler()">
+        <section id="code-viewer">
             <%= def_code %>
-        </textarea>
+        </section>
+        <textarea id="code" name="code" cols="30" rows="10" oninput="changeHandler()" autofocus></textarea>
     </div>
 </body>
 </html>
