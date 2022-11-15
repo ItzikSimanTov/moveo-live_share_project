@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moveo - Login</title>
+    <style>
+        * , body {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Lato', sans-serif;
+        }
+        body {
+            background-color: #f7f4f4;
+            width: 100vw;
+            height: 100vh;
+            /* layout */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+        nav {
+            background-color: #fff;
+            width: 100%;
+            height: 5rem;
+            /* layout */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4A4164;
+        }
+        .signup-container {
+            width: 100%;
+            height: calc(100% - 5rem);
+            /* layout */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 4rem;
+        }
+        form {
+            width: 30rem;
+            height: 22rem;
+            background-color: #333;
+            /* layout */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-evenly;
+            padding: 1.5rem;
+        }
+        form input:not([type=submit]) {
+            outline: none;
+            border: none;
+            background-color: #00000055;
+            border-left: 3px solid #4A4164;
+            padding: 6px 8px;
+            color: white;
+        }
+        form input[type=submit] {
+            outline: none;
+            border: none;
+            background-color: #999;
+            /* border: 3px solid #4A4164; */
+            border-radius: .5rem;
+            margin-left: 1rem;
+            padding: 6px 8px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- sign-up page -->
+    <nav>
+        <h1>Sign up</h1>
+    </nav>
+    <div class="signup-container">
+        <form action="/api/user/sign-up" method="post">
+            <input type="text" name="name" placeholder="Name..">
+            <input type="email" name="email" placeholder="Email..">
+            <input type="password" name="password" placeholder="Password..">
+            <input type="submit" value="Sign-up">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,6 +1,8 @@
 // codeblock:controllers file
 const {Codeblock} = require('../../models/codeblock')
 const {CodeblockTypes} = require('../../db/types/codeblock')
+// utils
+const {signCodeblockToken} = require('../../utils/jwt')
 
 /**
  * @desc return all codeblock categories.
@@ -12,10 +14,17 @@ const getCategories = async (req, res) => {
 /**
  * @desc allows the student and the mentor to join a shared codeblock page.
  */
-const joinCodeblock = async (req, res) => {
-    // get token from url
-    // allocate a new socket
+const generateRoomController = async (req, res) => {
+    // validate payload
+    if (Object.keys(req.body).length !== 2)
+        return res.status(400).send('Should contain codeblock-title & user-id').end()
+    // create codeblock instance in db
+    const result = await Codeblock.create({title: req.body.codeblock_title, code: ''})
+    // generate token
+    const token = signCodeblockToken({user: req.body.user, codeblock_id: result._id.toString()})
+    // return to client
+    // return res.status(200).json({link: `http://localhost:5000/codeblock?student_login=${token}`}).end()
+    return res.status(200).redirect(`http://localhost:5000/codeblock?student_login=${token}`)
 }
 
-
-module.exports = {getCategories}
+module.exports = {getCategories, generateRoomController}

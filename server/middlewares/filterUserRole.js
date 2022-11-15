@@ -12,7 +12,7 @@ const filterUserRoleMiddleware = role => async (req, res, next) => {
     jwt.verify(token, '12345', async (err, data) => {
         // validate token
         if (err) {
-            return res.status(403).send('Accedd denied').end()
+            return res.status(403).send('Access denied').end()
         }
         // find user inside token
         const user = await User.findById(data._id)
@@ -20,7 +20,7 @@ const filterUserRoleMiddleware = role => async (req, res, next) => {
             // -- user found
             console.log('role', role, data.role)
             if (role && role !== data.role) {
-                return res.status(403).send('Access denied').end()
+                return res.status(403).send('Wrong user').end()
             }
             req['user'] = user
             next()

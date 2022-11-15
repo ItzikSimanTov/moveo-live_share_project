@@ -19,11 +19,11 @@ const signUpController = async (req, res) => {
         }).save()
         // create & return token
         const token = signNewToken({_id: user._id.toString(), role: user.role})
-        res.status(201).json({token}).end()
+        return res.status(200).cookie('x-auth-token', token, {maxAge: DAY_IN_MS}).send('Sign-up success!').end()
     }
     catch(err) {
         console.log(err)
-        res.status(500).send().end()
+        res.status(200).send('User already exists.').end()
     }
 }
 
@@ -32,17 +32,14 @@ const signUpController = async (req, res) => {
  */
 const signInController = async (req, res) => {
     try{
-        console.log('logging in', req.body)
         const user = await User.findOne({email: req.body.email})
         if (!user) {
             return res.status(400).send('cannot find the user')
         }
         if(await bcrypt.compare(req.body.password, user.password)) {
             // create & return token
-            console.log({user})
             const token = signNewToken({_id: user._id.toString(), role: user.role})
-            res.status(200).cookie('x-auth-token', token, {maxAge: DAY_IN_MS}).send('Sign-in success!').end()
-            // res.status(200).cookie('x-auth-token', token, {maxAge: DAY_IN_MS}).redirect('/login-success').end()
+            return res.status(200).cookie('x-auth-token', token, {maxAge: DAY_IN_MS}).send('Sign-in success!').end()
         }
         else {
             res.status(403).send('not allowed').end()
