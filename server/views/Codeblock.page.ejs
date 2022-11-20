@@ -107,8 +107,8 @@
         // copy link to clipboard
         const copyLink = async () => {
             if (IsMentor) {
-                navigator.clipboard.writeText(location.href)
-                alert('Link copied to clipboard!')
+                await navigator.clipboard.writeText(location.href)
+                alert('Invite link copied to clipboard!')
             }
         }
     </script>
