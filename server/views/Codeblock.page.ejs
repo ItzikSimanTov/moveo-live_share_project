@@ -103,9 +103,17 @@
             let js = hljs.highlight(value, {language: 'javascript'}).value
             document.querySelector('#code-viewer').innerHTML = js.replace('\n', '<br/>')
         }
+
+        // copy link to clipboard
+        const copyLink = async () => {
+            if (IsMentor) {
+                navigator.clipboard.writeText(location.href)
+                alert('Link copied to clipboard!')
+            }
+        }
     </script>
 </head>
-<body>
+<body onload="copyLink()">
     <!-- login page -->
     <nav>
         <h1>Codeblock room: <%= uuid %></h1>

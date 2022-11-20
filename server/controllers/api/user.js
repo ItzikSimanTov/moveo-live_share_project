@@ -39,7 +39,11 @@ const signInController = async (req, res) => {
         if(await bcrypt.compare(req.body.password, user.password)) {
             // create & return token
             const token = signNewToken({_id: user._id.toString(), role: user.role})
-            return res.status(200).cookie('x-auth-token', token, {maxAge: DAY_IN_MS}).send('Sign-in success!').end()
+            // -- redirect to lobby if mentor, send success otherwise
+            if (user.role === 'mentor') {
+                return res.status(200).cookie('x-auth-token', token, {maxAge: DAY_IN_MS}).redirect('/lobby')
+            }
+            else return res.status(200).cookie('x-auth-token', token, {maxAge: DAY_IN_MS}).send('Sign-in success!').end()
         }
         else {
             res.status(403).send('not allowed').end()

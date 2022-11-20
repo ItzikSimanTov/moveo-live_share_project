@@ -25,7 +25,7 @@ const generateRoomController = async (req, res) => {
     const token = signCodeblockToken({user: req.body.user_id, codeblock_id: result._id.toString()})
     // return to client
     // return res.status(200).json({link: `http://localhost:5000/codeblock?student_login=${token}`}).end()
-    return res.status(200).redirect(`http://localhost:5000/codeblock?student_login=${token}`)
+    return res.status(200).redirect(`codeblock?student_login=${token}`)
 }
 
 module.exports = {getCategories, generateRoomController}
