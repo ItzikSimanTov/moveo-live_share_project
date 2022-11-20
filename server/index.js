@@ -12,7 +12,7 @@ const { clientRouter } = require('./routes/client')
 const server = require('http').createServer(app)
 const { Server } = require('socket.io')
 // configs
-const SERVER_PORT = process.env['SERVER_PORT']
+const SERVER_PORT = process.env['PORT']
 
 // create listening socket server
 const io = new Server(server)
